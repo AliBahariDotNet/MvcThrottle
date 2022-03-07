@@ -55,6 +55,11 @@ namespace MvcThrottle
 
         public IIpAddressParser IpAddressParser { get; set; }
 
+        /// <summary>
+        /// Enabled Global Throttling
+        /// </summary>
+        public bool EnabledGlobalThrottling { get; set; }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             EnableThrottlingAttribute attrPolicy = null;
@@ -178,7 +183,7 @@ namespace MvcThrottle
                                 string.Format(message, rateLimit, rateLimitPeriod),
                                 QuotaExceededResponseCode,
                                 requestId);
-                                
+
                             return;
                         }
                     }
@@ -327,12 +332,12 @@ namespace MvcThrottle
                     return true;
 
             if (Policy.EndpointThrottling)
-                if (Policy.EndpointWhitelist != null && 
+                if (Policy.EndpointWhitelist != null &&
                     Policy.EndpointWhitelist.Any(x => requestIdentity.Endpoint.IndexOf(x, 0, StringComparison.InvariantCultureIgnoreCase) != -1))
                     return true;
 
             if (Policy.UserAgentThrottling && requestIdentity.UserAgent != null)
-                if (Policy.UserAgentWhitelist != null && 
+                if (Policy.UserAgentWhitelist != null &&
                     Policy.UserAgentWhitelist.Any(x => requestIdentity.UserAgent.IndexOf(x, 0, StringComparison.InvariantCultureIgnoreCase) != -1))
                     return true;
 
@@ -344,12 +349,18 @@ namespace MvcThrottle
             var applyThrottling = false;
             attr = null;
 
+            if (EnabledGlobalThrottling)
+            {
+                attr = new EnableThrottlingAttribute();
+                applyThrottling = true;
+            }
+
             if (filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(EnableThrottlingAttribute), true))
             {
                 attr = (EnableThrottlingAttribute)filterContext.ActionDescriptor.ControllerDescriptor.GetCustomAttributes(typeof(EnableThrottlingAttribute), true).First();
                 applyThrottling = true;
             }
-            
+
             //disabled on the class
             if (filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(DisableThrottlingAttribute), true))
             {

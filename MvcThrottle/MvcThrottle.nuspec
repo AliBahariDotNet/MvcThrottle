@@ -1,18 +1,18 @@
-<?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
-    <version>$version$</version>
-    <authors>Stefan Prodan</authors>
-    <owners>Stefan Prodan</owners>
     <id>MvcThrottle</id>
+    <version>2.1.3.1</version>
     <title>ASP.NET MVC Rate Limiter</title>
+    <authors>Ali Bahari</authors>
+    <owners>Ali Bahari</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/AliBahariDotNet/MvcThrottle</projectUrl>
     <description>MvcThrottle filter is designed for controlling the rate of requests that clients can make to a website based on IP address, request route, user-agent and client identity. You can set multiple limits for different scenarios like allowing an IP to make a maximum number of calls per second, per minute, per hour or per day. You can define these limits to address all requests made to your website or you can scope the limits to each Controller, Action or URL, with or without query string params.</description>
     <releaseNotes>If you are looking for the ASP.NET Core version please use AspNetCoreRateLimit package</releaseNotes>
-    <copyright>Stefan Prodan 2014-2017</copyright>
-    <tags>ASP.NET MVC, throttling, rate limits</tags>
-    <projectUrl>https://github.com/stefanprodan/MvcThrottle</projectUrl>
+    <copyright>Ali Bahari 2022</copyright>
     <language>en-US</language>
+    <tags>ASP.NET MVC, throttling, rate limits</tags>
     <dependencies>
       <dependency id="Microsoft.AspNet.Mvc" version="5.1.0" />
     </dependencies>
